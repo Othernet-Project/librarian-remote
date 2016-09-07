@@ -1,0 +1,2 @@
+recursive-include librarian_remote *
+recursive-exclude tests *
