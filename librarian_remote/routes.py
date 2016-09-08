@@ -49,7 +49,7 @@ class Remote(XHRPartialFormRoute):
         dest = exts.config['remote.file']
         # store configuration in both setup and REMOTE file
         save_remote_setup(params, dest)
-        exts.setup.append({'remote': dict(self.request.forms)})
+        exts.setup.append({'remote': params})
         # restart remote services
         commands = self.config['remote.restart_commands']
         exts.tasks.schedule(restart_services, args=(commands,), delay=5)
