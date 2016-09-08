@@ -8,6 +8,7 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 
 from bottle_utils.i18n import lazy_gettext as _
 
+from librarian.core.exts import ext_container as exts
 from librarian.presentation.dashboard.dashboard import DashboardPlugin
 
 from .forms import RemoteForm
@@ -22,5 +23,6 @@ class RemoteDashboardPlugin(DashboardPlugin):
         return self.name + '/dashboard.tpl'
 
     def get_context(self):
-        form = RemoteForm()
+        data = exts.config.get('remote', {})
+        form = RemoteForm(data)
         return dict(form=form)
