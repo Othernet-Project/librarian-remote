@@ -9,6 +9,7 @@ file that comes with the source code, or http://www.gnu.org/licenses/gpl.txt.
 import logging
 import os
 
+from bottle_utils.i18n import lazy_gettext as _
 from streamline import XHRPartialFormRoute
 
 from librarian.core.contrib.templates.renderer import template
@@ -36,7 +37,7 @@ class Remote(XHRPartialFormRoute):
     path = '/remote/'
     template_func = template
     template_name = 'remote/remote'
-    partial_template_name = 'remote/_remote'
+    partial_template_name = 'remote/_remote_form'
     form_factory = RemoteForm
 
     def get_unbound_form(self):
@@ -53,3 +54,4 @@ class Remote(XHRPartialFormRoute):
         # restart remote services
         commands = self.config['remote.restart_commands']
         exts.tasks.schedule(restart_services, args=(commands,), delay=5)
+        return dict(message=_("Remote access settings have been saved."))
